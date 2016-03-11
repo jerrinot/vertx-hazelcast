@@ -1,19 +1,20 @@
 package io.vertx.spi.cluster.hazelcast.impl;
 
+import io.vertx.core.Context;
 import io.vertx.core.Vertx;
 
 import java.util.concurrent.Executor;
 
 final class VertxExecutorAdapter implements Executor {
 
-    private final Vertx vertx;
+    private final Context context;
 
-    VertxExecutorAdapter(Vertx vertx) {
-        this.vertx = vertx;
+    VertxExecutorAdapter(Context context) {
+        this.context= context;
     }
 
     @Override
     public void execute(Runnable command) {
-        vertx.runOnContext(aVoid -> command.run());
+        context.runOnContext(aVoid -> command.run());
     }
 }

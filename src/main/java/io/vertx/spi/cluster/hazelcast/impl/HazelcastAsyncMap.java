@@ -44,7 +44,7 @@ public class HazelcastAsyncMap<K, V> implements AsyncMap<K, V> {
     ICompletableFuture<V> future = (ICompletableFuture<V>) map.getAsync(convertParam(k));
     future.andThen(
             new HandlerCallBackAdapter<>(asyncResultHandler),
-            new VertxExecutorAdapter(vertx)
+            new VertxExecutorAdapter(vertx.getOrCreateContext())
     );
   }
 
@@ -56,7 +56,7 @@ public class HazelcastAsyncMap<K, V> implements AsyncMap<K, V> {
     ICompletableFuture<Void> future = (ICompletableFuture<Void>) map.putAsync(kk, vv);
     future.andThen(
             new VoidHandlerCallBackAdapter(completionHandler),
-            new VertxExecutorAdapter(vertx)
+            new VertxExecutorAdapter(vertx.getOrCreateContext())
     );
   }
 
@@ -78,7 +78,7 @@ public class HazelcastAsyncMap<K, V> implements AsyncMap<K, V> {
 
     future.andThen(
             new VoidHandlerCallBackAdapter(completionHandler),
-            new VertxExecutorAdapter(vertx)
+            new VertxExecutorAdapter(vertx.getOrCreateContext())
     );
   }
 
